@@ -8,7 +8,7 @@ module.exports = {
     const { from, search, to } = req.query;
 
     cubeModel.getAll({ name: search, from: +from, to: +to }).then(cubes => {
-      res.render('index', { layout: false, cubes, search, from, to });
+      res.render('index', { title: 'Cube Workshop', cubes, search, from, to });
     }).catch(next);
   },
   getCube(req, res, next) {
@@ -16,7 +16,7 @@ module.exports = {
     const id = +req.params.id;
 
     cubeModel.findById(id).then(cube => {
-      res.render('details', { layout: false, cube })
+      res.render('details', {title: 'Cube Workshop', cube })
     }).catch(next);
   },
   postCreateCube(req, res, next) {
@@ -29,6 +29,6 @@ module.exports = {
   },
   getCreateCube(req, res) {
 
-    res.render('create', { layout: false });
+    res.render('create', {title: 'Cube Workshop'});
   }
 }
