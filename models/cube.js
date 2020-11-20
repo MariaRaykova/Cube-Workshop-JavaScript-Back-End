@@ -1,29 +1,32 @@
-const { v4 } = require('uuid');
-const { saveCube } = require('../controllers/database'); 
+const BaseModel = require('./base');
+const path = require('path');
 
+class CubeModel extends BaseModel {
 
-const databaseFilePath = path.join(__dirname, '..', 'config/database.json');
+    constructor() {
 
-class Cube {
-    constructor(name, description, imageUrl, difficulty) {
-        this.id = v4();
-        this.name = name || 'No Name';
-        this.description = description; 
-        this.imageUrl = imageUrl || "placeholder"; 
-        this.difficulty = difficulty || 0;
+        const filePath = path.join(global.__basedir, '/config/database.json');
+        super(filePath);
     }
 
+    insert(name, description, imageUrl, difficultyLevel) {
 
-    save() {  
-        const newCube = { 
-            id: this.id,
-            name: this.name,
-            description: this.description,
-            imageUrl: this.imageUrl,
-            difficulty: this.difficulty
+        return super.insert({ name, description, imageUrl, difficultyLevel }); //инсъртваме към ид-то и др неща. това ще върне промис
+    }
+
+    getAll(data) {
+
+        const { name, from, to } = data;
+
+        if (!data) {
+            return super.getAll();
         }
 
-        saveCube(newCube);
+        return super.queryBy(function (entry) {
+            return (name ? entry.name.includes(name) : true) &&  //ако има въведено найм проведи дали има съвпадение ако няма въведено върни true, за да продължи с другите филтри
+                (from ? entry.difficultyLevel >= from : true) &&
+                (to ? entry.difficultyLevel <= to : true);
+        })
     }
 }
-module.exports = Cube; 
+module.exports = new CubeModel();
