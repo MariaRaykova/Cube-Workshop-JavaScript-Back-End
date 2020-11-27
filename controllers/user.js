@@ -44,8 +44,24 @@ getLogin(req, res) {
     }) 
     .catch(next);
   },
-  getLogout(req, res){
-    res.clearCookie(authCookieName);
-    res.redirect('/');
+  getLogout(req, res) {
+    const token = getJWT(req);
+
+    if(!token) { res.redirect('/'); return; }
+
+    jwt.verify(token, jwtSecret, function(err, payload){ //ще игнорираме ако има грешка
+      if(Date.now() < payload.exp){ 
+        //if token is valid then put it inside blacklist database
+
+      }
+      res.clearCookie(authCookieName); 
+      res.redirect('/');
+    })
+   
   }
+
+  // getLogout(req, res){
+  //   res.clearCookie(authCookieName);
+  //   res.redirect('/');
+  // }
 }
