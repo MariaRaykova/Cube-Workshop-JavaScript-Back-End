@@ -3,19 +3,17 @@
   <div class="form">
     <form action='/register' method="POST">
       <label for="username">Username</label>
-      <input type="text" id="username" name="username">
+      <input type="text" id="username" name="username" value={{username}}>
 
       <label for="password">Password</label>
-      <input type="password" id="password" name="password">
+      <input type="password" id="password" name="password" value={{password}}>
 
       <label for="repeatPassword">Re-Password</label>
-      <input type="password" id="repeatPassword" name="repeatPassword">
+      <input type="password" id="repeatPassword" name="repeatPassword" value={{repeatPassword}}>
       <input type="submit" value="Registerer">
-      
-      {{#if errorMessage}}
-      <div class='error'>{{errorMessage}}</div>
-      {{/if}}
-
+      {{#each errors}}
+      <div class="error">{{msg}}</div>
+      {{/each}}
     </form>
   </div>
 </main>

@@ -5,8 +5,7 @@ const cubeSchema = mongoose.Schema({
     description: String, 
     imageUrl: String,
     difficultyLevel: String,
-    creatorId: String, // [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}], //ще е по-комплексен тип и ще сочи към таблицата с юзърс ако искаме да направим populate в някакъв случай
+    creatorId: [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}],
     accessories: [{type: mongoose.Schema.Types.ObjectId, ref: 'accessory'}]
-
 })
 module.exports = new mongoose.model('cube', cubeSchema) 
