@@ -23,5 +23,9 @@ module.exports = (app) => {
             res.status(400);
             return;
         }
+        if (err.message === 'UNAUTHORIZED') {//хубаво е да си ги изнесем като константи а тук да не работим директно със стрингове 
+            res.redirect('/')
+            return;
+        }
     })
 };
