@@ -10,7 +10,7 @@
         "express": "^4.17.1",
         "express-handlebars": "^3.1.0",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.10.15",
+        "mongoose": "^5.10.16",
         "uniqid": "^5.0.3"
     },
     "devDependencies": {
